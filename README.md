@@ -73,7 +73,7 @@
 ## 📁 Estructura del Proyecto
 
 ```
-gamevault/
+GameVault/
 ├── index.html              # Estructura HTML semántica + modales nativos
 ├── css/
 │   └── styles.css          # Sistema de diseño completo (tokens, temas, responsive)
@@ -98,8 +98,8 @@ gamevault/
 ### Opción 1 — Abrir directo (recomendado para evaluación)
 ```bash
 # Clonar el repositorio
-git clone https://github.com/TU_USUARIO/gamevault.git
-cd gamevault
+git clone https://github.com/Francisco-Carcamo/GameVault.git
+cd GameVault
 
 # Iniciar servidor local
 npx http-server -p 3000 -c-1
@@ -109,7 +109,7 @@ npx http-server -p 3000 -c-1
 ```
 
 ### Opción 2 — GitHub Pages
-Visita la demo en vivo: **[Francisco-Carcamo.github.io/gamevault](https://Francisco-Carcamo.github.io/gamevault)**
+Visita la demo en vivo: **[Francisco-Carcamo.github.io/GameVault](https://Francisco-Carcamo.github.io/Gamevault)**
 
 ### Opción 3 — Sin servidor
 Abrir `index.html` directamente en el navegador (algunas funciones de módulos ES6 requieren servidor local o GitHub Pages).
