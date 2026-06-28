@@ -4,20 +4,41 @@
 
 | Herramienta | Propósito principal |
 |---|---|
-| **Claude (Anthropic)** | Arquitectura, revisión de código, documentación |
-| **ChatGPT (OpenAI)** | Consultas puntuales sobre CSS y accesibilidad |
+| **ChatGPT (OpenAI)** | Generación del prompt base y definición de requisitos del proyecto |
+| **Google Antigravity** | Desarrollo completo de la aplicación: código, diseño, seguridad y arquitectura |
+| **Claude (Anthropic)** | Revisión final de archivos, correcciones, documentación y ajustes de entrega |
 
 ---
 
-## ¿Para qué se utilizó la IA?
+## Flujo de Trabajo con IA
 
-### 1. 🏗️ Arquitectura Modular del Proyecto
-Se consultó a la IA para definir cómo dividir la aplicación en módulos ES6 independientes y reutilizables. El resultado fue la separación entre `state.js`, `dom.js`, `utils.js` y los componentes en `/components/`.
+El proceso de desarrollo siguió tres etapas secuenciales con distintas herramientas:
 
-### 2. 🛡️ Prevención de XSS (Cross-Site Scripting)
-La IA explicó por qué `innerHTML` es vulnerable y cómo reemplazarlo con `document.createElement` y `createTextNode`. Esto derivó en la creación de la función `createElementHelper()` en `dom.js`, que construye el DOM de forma completamente segura.
+```
+ChatGPT  →  Google Antigravity  →  Claude
+(Prompt)       (Desarrollo)        (Revisión)
+```
 
-**Ejemplo concreto aprendido:**
+---
+
+## ¿Para qué se utilizó cada herramienta?
+
+### 1. 💬 ChatGPT — Generación del Prompt Base
+Antes de comenzar a desarrollar, se utilizó ChatGPT para estructurar y redactar un prompt detallado que describiera todos los requisitos del proyecto: funcionalidades esperadas, criterios de seguridad, accesibilidad, diseño visual y estructura modular. Este prompt fue el punto de partida para trabajar con Google Antigravity.
+
+### 2. 🏗️ Google Antigravity — Desarrollo de la Aplicación
+Con el prompt generado en la etapa anterior, se utilizó Google Antigravity para construir toda la aplicación. Esto incluyó:
+
+**Arquitectura Modular**
+La herramienta propuso dividir la aplicación en módulos ES6 independientes, separando responsabilidades entre `state.js`, `dom.js`, `utils.js` y los componentes en `/components/`.
+
+**Diseño Visual AAA**
+Se generó el sistema de diseño completo: paleta neón, glassmorphism, tipografía Orbitron, efectos glow según prioridad, scrollbar personalizada y soporte de tema oscuro/claro.
+
+**Prevención de XSS**
+Se implementó el uso de `createElement` y `createTextNode` en lugar de `innerHTML` con datos dinámicos, derivando en la función `createElementHelper()` en `dom.js`.
+
+**Ejemplo concreto implementado:**
 ```javascript
 // ❌ INSEGURO — permite inyección XSS
 element.innerHTML = userInput;
@@ -26,46 +47,46 @@ element.innerHTML = userInput;
 element.appendChild(document.createTextNode(userInput));
 ```
 
-### 3. 🔁 Sanitización de Inputs
-La función `sanitizeInput()` en `utils.js` fue diseñada con ayuda de la IA para reemplazar caracteres peligrosos (`<`, `>`, `"`, `'`, `/`) por sus entidades HTML seguras, previniendo XSS incluso si algún dato llegara al DOM por otro camino.
+**Sanitización de Inputs**
+Se creó la función `sanitizeInput()` en `utils.js` que reemplaza caracteres peligrosos (`<`, `>`, `"`, `'`, `/`) por sus entidades HTML seguras.
 
-### 4. 🧩 Componentes Reutilizables
-La IA sugirió el patrón de funciones creadoras de nodos DOM (`createTaskCard`, `createKPICard`, etc.) en lugar de plantillas de strings HTML, logrando componentes modulares, seguros y fáciles de mantener.
-
-### 5. ♿ Accesibilidad WCAG
-Con la IA se identificaron los atributos ARIA necesarios:
+**Accesibilidad WCAG**
+Se incorporaron atributos ARIA en toda la aplicación:
 - `aria-label` en botones de acción
 - `aria-live="polite"` en mensajes de error y badge contador
 - `aria-modal="true"` y `aria-labelledby` en los modales `<dialog>`
-- Clases `.sr-only` para labels ocultos visualmente pero presentes para lectores de pantalla
+- Clases `.sr-only` para labels ocultos para lectores de pantalla
 
-### 6. 📊 Gráfico SVG Circular Animado
-Se utilizó la IA para entender la técnica de `stroke-dasharray` y `stroke-dashoffset` en SVG para crear el anillo de progreso de la colección sin depender de librerías externas.
+**Gráfico SVG Circular Animado**
+Se implementó el anillo de progreso usando `stroke-dasharray` y `stroke-dashoffset` sin depender de librerías externas.
 
-### 7. 🔄 Refactorización y Optimización
-La IA revisó funciones para:
-- Reemplazar `innerHTML = ''` por `replaceChildren()` (más rápido y atómico)
-- Optimizar el renderizado de listas evitando re-renders innecesarios
-- Mejorar el manejo de errores en localStorage con bloques `try/catch`
+**Validaciones en Tiempo Real**
+Se desarrollaron las funciones `validateTitle()`, `validateCategory()` y `validateDueDate()` con feedback visual inmediato en el formulario.
 
-### 8. 📝 Documentación JSDoc
-Los comentarios `@param`, `@returns` y las descripciones de cada función fueron escritos con asistencia de la IA para mantener un estándar profesional de documentación.
+### 3. 🔍 Claude (Anthropic) — Revisión Final y Entrega
+Una vez desarrollada la aplicación, se utilizó Claude para revisar todos los archivos del proyecto. Las tareas realizadas en esta etapa fueron:
+
+- Detectar y corregir inconsistencias de texto (ej: el modal decía "Nueva Tarea" en lugar de "Añadir Juego")
+- Agregar el subtítulo descriptivo al header de la aplicación
+- Organizar y verificar la estructura de carpetas para GitHub Pages
+- Redactar el `README.md` y este archivo `USO_IA.md`
+- Resolver dudas sobre el proceso de publicación en GitHub Pages
 
 ---
 
 ## ¿Qué NO hizo la IA?
 
-- La IA **no escribió el código final** — actuó como consultor y revisor
-- Las decisiones de diseño visual (paleta neón, glassmorphism, tipografía Orbitron) fueron propias
-- La lógica de negocio (filtros combinados, cálculo de estadísticas, detección de juegos atrasados) fue implementada de forma independiente
-- Las pruebas funcionales y de accesibilidad se realizaron manualmente en el navegador
+- Las pruebas funcionales (XSS, filtros, exportar/importar, responsive) se realizaron **manualmente en el navegador**
+- La decisión de usar cada herramienta en cada etapa fue **propia**
+- La integración del prompt con los requisitos reales de la evaluación fue **definida de forma independiente**
+- La verificación final de que todo funcionara correctamente antes de la entrega fue **manual**
 
 ---
 
 ## Reflexión Final
 
-El uso de IA en este proyecto permitió aprender mejores prácticas de seguridad web (XSS), accesibilidad (WCAG) y arquitectura de software (modularización) que de otro modo habrían tomado mucho más tiempo de investigación. La IA funcionó como un tutor técnico que explica el "por qué" detrás de cada decisión, no solo el "cómo".
+El flujo de trabajo con múltiples herramientas de IA permitió aprovechar las fortalezas de cada una: ChatGPT para estructurar ideas, Google Antigravity para generar una aplicación completa y funcional, y Claude para revisar, corregir y documentar antes de la entrega. Este enfoque refleja cómo se usa la IA en el mundo profesional real: no como reemplazo del desarrollador, sino como conjunto de herramientas especializadas para distintas etapas del proyecto.
 
 ---
 
-*Proyecto desarrollado para evaluación INACAP 2026 — Desarrollo Web con JavaScript Vanilla*
+*Proyecto desarrollado para la Evaluación Sumativa N°2 de Front-End — INACAP 2026*
