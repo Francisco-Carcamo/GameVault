@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="GameVault: Tu bóveda premium para coleccionar y trackear tus videojuegos favoritos con estadísticas.">
+  <title>GameVault — Colección y Estadísticas de Videojuegos</title>
+  <!-- Google Fonts: Orbitron para estética gamer y Poppins para lectura de textos -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Enlace a estilos CSS -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Contenedor principal de la app -->
+  <div id="app" class="app-container">
+    
+    <!-- HEADER -->
+    <header class="app-header">
+      <div class="header-logo">
+        <!-- Icono gamer estilizado (Mando/Gamepad) -->
+        <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M6 12h4m-2-2v4m8-2h.01M15 12h.01M21 7.75c0-1.84-2.83-3.25-6.5-3.25S8 5.91 8 7.75c0 .35.1.68.27.97L5.8 17.5c-.5 1.5 1 2.5 2 2l4-2.5h.4c3.67 0 6.5-1.41 6.5-3.25v-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div>
+          <span class="logo-text">Game<span>Vault</span></span>
+          <p class="logo-subtitle">Administra tu colección · filtra · organiza · trackea tu progreso</p>
+        </div>
+      </div>
+      
+      <div class="header-actions">
+        <!-- Selector de tema claro/oscuro con microinteracción -->
+        <button id="theme-toggle" class="btn-icon" aria-label="Cambiar tema visual" title="Cambiar tema">
+          <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/>
+            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" fill="currentColor"/>
+          </svg>
+        </button>
+        <button id="new-task-btn" class="btn btn-primary" aria-haspopup="dialog">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="18" height="18">
+            <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Añadir Juego
+        </button>
+      </div>
+    </header>
+
+    <main class="app-main">
+      <!-- SECCIÓN MÉTRICAS (ESTADÍSTICAS GAMER) -->
+      <section id="metrics-dashboard" class="dashboard-section" aria-label="Resumen de Colección de Juegos">
+        <div id="metrics-container" class="metrics-grid">
+          <!-- Renderizado dinámico desde statsPanel.js -->
+        </div>
+      </section>
+
+      <!-- BARRA DE ACCIONES (Filtros, Ordenamiento y Búsqueda) -->
+      <section class="controls-section" aria-label="Controles de búsqueda y filtrado de videojuegos">
+        <div class="search-box-wrapper">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <input 
+            type="search" 
+            id="search-input" 
+            placeholder="Buscar por título, género o notas..." 
+            aria-label="Buscar juegos en tiempo real"
+            autocomplete="off"
+          >
+        </div>
+
+        <div class="filters-wrapper">
+          <div class="select-group">
+            <label for="filter-status" class="sr-only">Filtrar por Estado de Juego</label>
+            <select id="filter-status" aria-label="Filtrar por Estado">
+              <option value="todos">Todos los Estados</option>
+              <option value="pendiente">Pendientes / Backlog</option>
+              <option value="en-progreso">Jugando Actualmente</option>
+              <option value="completada">Completados / Beaten</option>
+              <option value="atrasada">Atrasados / Postpuestos</option>
+            </select>
+          </div>
+
+          <div class="select-group">
+            <label for="filter-priority" class="sr-only">Filtrar por Hype</label>
+            <select id="filter-priority" aria-label="Filtrar por Hype">
+              <option value="todos">Todos los Hypes</option>
+              <option value="alta">Hype Crítico</option>
+              <option value="media">Hype Moderado</option>
+              <option value="baja">Hype Casual</option>
+            </select>
+          </div>
+
+          <div class="select-group">
+            <label for="filter-category" class="sr-only">Filtrar por Género</label>
+            <select id="filter-category" aria-label="Filtrar por Género">
+              <option value="todos">Todos los Géneros</option>
+              <!-- Las categorías dinámicas se añadirán aquí automáticamente -->
+            </select>
+          </div>
+
+          <div class="select-group">
+            <label for="sort-by" class="sr-only">Ordenar por</label>
+            <select id="sort-by" aria-label="Ordenar videojuegos">
+              <option value="dueDate-asc">Fecha de Adquisición (Próximos)</option>
+              <option value="dueDate-desc">Fecha de Adquisición (Lejanos)</option>
+              <option value="priority-desc">Hype (Mayor a Menor)</option>
+              <option value="createdAt-desc">Fecha de Registro (Nuevos)</option>
+              <option value="title-asc">Nombre (A - Z)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Acciones de Datos (Importar/Exportar) -->
+        <div class="data-actions">
+          <button id="export-btn" class="btn btn-secondary btn-sm" title="Exportar colección a JSON">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="16" height="16">
+              <path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Exportar Vault
+          </button>
+          
+          <label for="import-input" class="btn btn-secondary btn-sm btn-file-label" title="Importar colección desde JSON">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="16" height="16">
+              <path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Importar Vault
+          </label>
+          <input type="file" id="import-input" accept=".json" class="sr-only" aria-label="Importar colección JSON">
+        </div>
+      </section>
+
+      <!-- SECCIÓN LISTADO VIDEOJUEGOS -->
+      <section class="tasks-section" aria-label="Lista de Videojuegos en la Bóveda">
+        <div class="tasks-header">
+          <h2 class="section-title">Mi Colección</h2>
+          <span id="tasks-count-badge" class="count-badge" aria-live="polite">0 juegos</span>
+        </div>
+        
+        <!-- Contenedor dinámico de videojuegos -->
+        <div id="tasks-container" class="tasks-grid">
+          <!-- Renderizado dinámico de tarjetas -->
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="app-footer">
+      <p>&copy; 2026 GameVault. Desarrollado con JavaScript Vanilla, UI/UX AAA Responsivo y Seguro.</p>
+    </footer>
+
+    <!-- MODAL DE FORMULARIO DE JUEGO (CREACIÓN / EDICIÓN) -->
+    <dialog id="task-dialog" class="custom-dialog" aria-modal="true" aria-labelledby="dialog-title">
+      <div class="dialog-content">
+        <header class="dialog-header">
+          <h3 id="dialog-title">Añadir Juego</h3>
+          <button id="dialog-close-btn" class="btn-icon close-dialog-btn" aria-label="Cerrar formulario">&times;</button>
+        </header>
+        
+        <form id="task-form" novalidate>
+          <input type="hidden" id="task-id">
+          
+          <!-- Campo Título -->
+          <div class="form-field">
+            <label for="task-title-input">Título del Videojuego <span class="required" aria-hidden="true">*</span></label>
+            <input 
+              type="text" 
+              id="task-title-input" 
+              placeholder="Ej: Elden Ring: Shadow of the Erdtree" 
+              required 
+              maxlength="80"
+              autocomplete="off"
+            >
+            <span class="error-message" id="title-error" aria-live="polite"></span>
+          </div>
+
+          <!-- Campo Descripción -->
+          <div class="form-field">
+            <label for="task-desc-input">Reseña / Notas de Juego</label>
+            <textarea 
+              id="task-desc-input" 
+              placeholder="Escribe tus notas, porcentaje completado o lo que quieras recordar..." 
+              maxlength="300"
+              rows="3"
+            ></textarea>
+            <span class="error-message" id="desc-error" aria-live="polite"></span>
+          </div>
+
+          <!-- Fila de Campos: Género y Hype -->
+          <div class="form-row">
+            <div class="form-field">
+              <label for="task-category-input">Género / Categoría <span class="required" aria-hidden="true">*</span></label>
+              <input 
+                type="text" 
+                id="task-category-input" 
+                placeholder="Ej: RPG, Acción, FPS, Shooter" 
+                list="categories-list" 
+                required 
+                maxlength="20"
+                autocomplete="off"
+              >
+              <datalist id="categories-list">
+                <option value="RPG"></option>
+                <option value="Acción"></option>
+                <option value="FPS"></option>
+                <option value="Aventura"></option>
+                <option value="Estrategia"></option>
+              </datalist>
+              <span class="error-message" id="category-error" aria-live="polite"></span>
+            </div>
+
+            <div class="form-field">
+              <label for="task-priority-input">Hype / Prioridad <span class="required" aria-hidden="true">*</span></label>
+              <select id="task-priority-input" required>
+                <option value="baja">Hype Casual</option>
+                <option value="media" selected>Hype Moderado</option>
+                <option value="alta">Hype Crítico</option>
+              </select>
+              <span class="error-message" id="priority-error" aria-live="polite"></span>
+            </div>
+          </div>
+
+          <!-- Fila de Campos: Fecha y Estado -->
+          <div class="form-row">
+            <div class="form-field">
+              <label for="task-due-date-input">Fecha de Lanzamiento / Compra <span class="required" aria-hidden="true">*</span></label>
+              <input 
+                type="date" 
+                id="task-due-date-input" 
+                required
+              >
+              <span class="error-message" id="due-date-error" aria-live="polite"></span>
+            </div>
+
+            <div class="form-field" id="status-field-container" style="display: none;">
+              <label for="task-status-input">Estado de Juego</label>
+              <select id="task-status-input">
+                <option value="pendiente">Pendiente / Backlog</option>
+                <option value="en-progreso">Jugando</option>
+                <option value="completada">Completado</option>
+              </select>
+            </div>
+          </div>
+
+          <footer class="dialog-actions">
+            <button type="button" id="form-cancel-btn" class="btn btn-secondary">Cancelar</button>
+            <button type="submit" id="form-submit-btn" class="btn btn-primary">Guardar Juego</button>
+          </footer>
+        </form>
+      </div>
+    </dialog>
+
+    <!-- MODAL DE CONFIRMACIÓN DE ELIMINACIÓN -->
+    <dialog id="confirm-dialog" class="custom-dialog confirm-dialog" aria-modal="true" aria-labelledby="confirm-title">
+      <div class="dialog-content">
+        <header class="dialog-header">
+          <h3 id="confirm-title">¿Borrar de la Bóveda?</h3>
+          <button id="confirm-close-btn" class="btn-icon close-dialog-btn" aria-label="Cerrar modal">&times;</button>
+        </header>
+        <div class="dialog-body">
+          <p>Esta acción no se puede deshacer. Se borrará permanentemente de tu colección:</p>
+          <strong id="confirm-task-title-text" class="text-danger">Título del Juego</strong>
+        </div>
+        <footer class="dialog-actions">
+          <button type="button" id="confirm-cancel-btn" class="btn btn-secondary">Cancelar</button>
+          <button type="button" id="confirm-ok-btn" class="btn btn-danger">Eliminar</button>
+        </footer>
+      </div>
+    </dialog>
+
+    <!-- CONTENEDOR DE TOASTS (NOTIFICACIONES DINÁMICAS) -->
+    <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  </div>
+
+  <!-- Carga del JavaScript principal como módulo ES6 -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
