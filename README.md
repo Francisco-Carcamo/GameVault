@@ -109,7 +109,7 @@ npx http-server -p 3000 -c-1
 ```
 
 ### Opción 2 — GitHub Pages
-Visita la demo en vivo: **[TU_USUARIO.github.io/gamevault](https://TU_USUARIO.github.io/gamevault)**
+Visita la demo en vivo: **[Francisco-Carcamo.github.io/gamevault](https://Francisco-Carcamo.github.io/gamevault)**
 
 ### Opción 3 — Sin servidor
 Abrir `index.html` directamente en el navegador (algunas funciones de módulos ES6 requieren servidor local o GitHub Pages).
@@ -145,7 +145,7 @@ Abrir `index.html` directamente en el navegador (algunas funciones de módulos E
 ## 👤 Autor
 
 Francisco Cárcamo
-- GitHub: [@Francisco-Carcamo](https://github.com/Francisco-Carcamo)
+- GitHub: **[@Francisco-Carcamo](https://github.com/Francisco-Carcamo)**
 - Proyecto desarrollado para evaluación **INACAP 2026**
 
 ---
