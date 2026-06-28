@@ -12,6 +12,7 @@
 ## 📋 Descripción
 
 **GameVault** es una aplicación web de gestión de colecciones de videojuegos desarrollada con **JavaScript Vanilla puro** (sin frameworks). Permite agregar, editar, eliminar y filtrar juegos de tu colección personal, con estadísticas en tiempo real, tema oscuro/claro, exportación e importación de datos y una interfaz visual de estética AAA.
+
 Este proyecto fue desarrollado como parte de la Evaluación Sumativa N°2 de Front End en INACAP, aplicando manipulación del DOM, validación de formularios, estructuras de datos (arreglos y objetos), funciones reutilizables y buenas prácticas de seguridad en JavaScript.
 ---
 
@@ -132,6 +133,7 @@ Abrir `index.html` directamente en el navegador (algunas funciones de módulos E
 ### Vista Móvil
 *Diseño responsive optimizado para dispositivos pequeños*
 
+Las capturas corresponden a la versión publicada en GitHub Pages
 ---
 
 # 🕹️ Cómo usar
@@ -151,6 +153,8 @@ Abrir `index.html` directamente en el navegador (algunas funciones de módulos E
 
 **Francisco Cárcamo**
 - GitHub: [@Francisco-Carcamo](https://github.com/Francisco-Carcamo)
+- Repositorio: https://github.com/Francisco-Carcamo/GameVault
+- Demo: https://francisco-carcamo.github.io/GameVault
 - Proyecto desarrollado para la Evaluación Sumativa N°2 de Front End – INACAP.
 
 ---
