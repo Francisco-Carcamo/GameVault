@@ -168,7 +168,7 @@ Proyecto desarrollado para la Evaluación Sumativa N°2 de Front-End — INACAP.
 
 # 🤖 Uso de IA
 
-La documentación del uso de Inteligencia Artificial se encuentra en el archivo **USO_IA.md**.
+Ver archivo USO_IA.md para el detalle completo del uso de IA en este proyecto.
 
 ---
 
